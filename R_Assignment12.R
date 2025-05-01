@@ -1,325 +1,285 @@
-library(readr)
-data <- read_csv("E:/KDU Semester 02/P & S/R Assignment/StudentPerformanceFactors.csv")
-View(StudentPerformanceFactors)
-head(data)
-names(data)
-summary(data)
-str(data)
+raw_data<-StudentPerformanceFactors
+
+#number of records and variables 
+dim(raw_data)
+
+#names of the variables 
+names(raw_data)
+
+#types of the data within 
+str(raw_data)
+
+#Data Preparation
+#Handling missing values 
+print(colSums(is.na(raw_data)))
+
+#there are some null values so removing those
+clean_data<-na.omit(raw_data)
+print(colSums(is.na(clean_data)))
+
+#checking for the number of records after cleaning 
+dim(clean_data)
+
+#removing duplicates 
+data<-unique(clean_data)
+print(data)
+
+#checking for the number of records after removing duplicates 
 dim(data)
-#Use na.rm = TRUE to return Null values as NA#
-#Hours Studied: Numerical, Continuous#
-paste("Max Hours Studied: ", max(data$Hours_Studied, na.rm = TRUE))
-paste("Min Hours Studied: ", min(data$Hours_Studied, na.rm = TRUE))
-paste("Mean Hours Studied: ", mean(data$Hours_Studied, na.rm = TRUE))
-paste("Median Hours Studied: ", median(data$Hours_Studied, na.rm = TRUE))
-mode_hours <- as.numeric(names(sort(table(data$Hours_Studied), decreasing = TRUE)[1]))
-paste("Mode Hours Studied: ", mode_hours)
-paste("Mode Hours Studied: ", mode_hours)
-paste("Percentiles (10th, 25th, 50th, 75th, 90th) of Hours Studied: ", quantile(data$Hours_Studied, probs = c(0.10, 0.25, 0.50, 0.75, 0.90), na.rm = TRUE))
-hist(data$Hours_Studied,
-     main = "Histogram of Hours Studied",
-     xlab = "Hours Studied",
-     col = "lightblue",
-     border = "black")
-#Exam Score : Numerical, Continuous#
-paste("Max Exam Score: ", max(data$Exam_Score, na.rm = TRUE))
-paste("Min Exam Score: ", min(data$Exam_Score, na.rm = TRUE))
-paste("Mean Exam Score: ", mean(data$Exam_Score, na.rm = TRUE))
-paste("Median Exam Score: ", median(data$Exam_Score, na.rm = TRUE))
-mode_exam <- as.numeric(names(sort(table(data$Exam_Score), decreasing = TRUE)[1]))
-paste("Mode Exam Score: ", mode_exam)
-paste("Mode Exam Score: ", mode_exam)
-paste("Percentiles (10th, 25th, 50th, 75th, 90th) of Exam Score: ", quantile(data$Exam_Score, probs = c(0.10, 0.25, 0.50, 0.75, 0.90), na.rm = TRUE))
-hist(data$Exam_Score,
-     main = "Histogram of Exam Score",
-     xlab = "Exam Score",
-     col = "lightblue",
-     border = "black")
-#Attendance : Numerical, Continuous(Percentage)#
-paste("Max Attendance: ", max(data$Attendance, na.rm = TRUE))
-paste("Min Attendance: ", min(data$Attendance, na.rm = TRUE))
-paste("Mean Attendance: ", mean(data$Attendance, na.rm = TRUE))
-paste("Median Attendance: ", median(data$Attendance, na.rm = TRUE))
-mode_attendance <- as.numeric(names(sort(table(data$Attendance), decreasing = TRUE)[1]))
-paste("Mode Attendance: ", mode_attendance)
-paste("Mode Attendance: ", mode_attendance)
-paste("Percentiles (10th, 25th, 50th, 75th, 90th) of Attendance: ", quantile(data$Attendance, probs = c(0.10, 0.25, 0.50, 0.75, 0.90), na.rm = TRUE))
-boxplot(data$Attendance,
-        main = "Boxplot of Attendance",
-        ylab = "Attendance",
-        col = "lightgreen")
-#Sleep Hours: Numerical, Continuous#
-paste("Max Sleep Hours: ", max(data$Sleep_Hours, na.rm = TRUE))
-paste("Min Sleep Hours: ", min(data$Sleep_Hours, na.rm = TRUE))
-paste("Mean Sleep Hours: ", mean(data$Sleep_Hours, na.rm = TRUE))
-paste("Median Sleep Hours: ", median(data$Sleep_Hours, na.rm = TRUE))
-mode_sleep <- as.numeric(names(sort(table(data$Sleep_Hours), decreasing = TRUE)[1]))
-paste("Mode Sleep Hours: ", mode_sleep)
-paste("Mode Sleep Hours: ", mode_sleep)
-paste("Percentiles (10th, 25th, 50th, 75th, 90th) of Sleep Hours: ", quantile(data$Sleep_Hours, probs = c(0.10, 0.25, 0.50, 0.75, 0.90), na.rm = TRUE))
-boxplot(data$Sleep_Hours,
-        main = "Boxplot of Sleep Hours",
-        ylab = "Sleep Hours",
-        col = "lightgreen")
-#Previous Scores : Numerical, Continuous#
-paste("Max Previous Scores: ", max(data$Previous_Scores, na.rm = TRUE))
-paste("Min Previous Scores: ", min(data$Previous_Scores, na.rm = TRUE))
-paste("Mean Previous Scores: ", mean(data$Previous_Scores, na.rm = TRUE))
-paste("Median Previous Scores: ", median(data$Previous_Scores, na.rm = TRUE))
-mode_prev_scores <- as.numeric(names(sort(table(data$Previous_Scores), decreasing = TRUE)[1]))
-paste("Mode Previous Scores: ", mode_prev_scores)
-paste("Mode Previous Scores: ", mode_prev_scores)
-paste("Percentiles (10th, 25th, 50th, 75th, 90th) of Previous Scores: ", quantile(data$Previous_Scores, probs = c(0.10, 0.25, 0.50, 0.75, 0.90), na.rm = TRUE))
-hist(data$Previous_Scores,
-     main = "Histogram of Previous Scores",
-     xlab = "Previous Scores",
-     col = "lightblue",
-     border = "black")
-#Tutoring Sessions : Numerical, Discrete#
-paste("Max Tutoring Sessions: ", max(data$Tutoring_Sessions, na.rm = TRUE))
-paste("Min Tutoring Sessions: ", min(data$Tutoring_Sessions, na.rm = TRUE))
-paste("Mean Tutoring Sessions: ", mean(data$Tutoring_Sessions, na.rm = TRUE))
-paste("Median Tutoring Sessions: ", median(data$Tutoring_Sessions, na.rm = TRUE))
-mode_tutoring <- as.numeric(names(sort(table(data$Tutoring_Sessions), decreasing = TRUE)[1]))
-paste("Mode Tutoring Sessions: ", mode_tutoring)
-paste("Mode Tutoring Sessions: ", mode_tutoring)
-paste("Percentiles (10th, 25th, 50th, 75th, 90th) of Tutoring Sessions: ", quantile(data$Tutoring_Sessions, probs = c(0.10, 0.25, 0.50, 0.75, 0.90), na.rm = TRUE))
-boxplot(data$Tutoring_Sessions,
-        main = "Boxplot of Tutoring Sessions",
-        ylab = "Tutoring Sessions",
-        col = "lightgreen")
-#Physical activity : Numerical,Discrete#
-paste("Max Physical Activity: ", max(data$Physical_Activity, na.rm = TRUE))
-paste("Min Physical Activity: ", min(data$Physical_Activity, na.rm = TRUE))
-paste("Mean Physical Activity: ", mean(data$Physical_Activity, na.rm = TRUE))
-paste("Median Physical Activity: ", median(data$Physical_Activity, na.rm = TRUE))
-mode_physical_activity <- as.numeric(names(sort(table(data$Physical_Activity), decreasing = TRUE)[1]))
-paste("Mode Physical Activity: ", mode_physical_activity)
-paste("Mode Physical Activity: ", mode_physical_activity)
-paste("Percentiles (10th, 25th, 50th, 75th, 90th) of Physical Activity: ", quantile(data$Physical_Activity, probs = c(0.10, 0.25, 0.50, 0.75, 0.90), na.rm = TRUE))
-hist(data$Physical_Activity,
-     main = "Histogram of Physical Activity",
-     xlab = "Physical Activity (Hours)",
-     col = "lightblue",
-     border = "black")
-#Parental_Involvement : Categorical#
-freq_parental <- table(data$Parental_Involvement)
-print(freq_parental)
-barplot(freq_parental,
-        main = "Barplot of Parental Involvement",
-        xlab = "Parental Involvement",
-        ylab = "Frequency",
-        col = "orange")
-#Access_to_Resources : Categorical#
-freq_resources <- table(data$Access_to_Resources)
-print(freq_resources)
-pie(freq_resources,
-    main = "Pie Chart of Access to Resources",
-    col = rainbow(length(freq_resources)))
-#Extracurricular_Activities : Categorical#
-freq_activities <- table(data$Extracurricular_Activities)
-print(freq_activities)
-barplot(freq_activities,
-        main = "Barplot of Extracurricular Activities",
-        xlab = "Extracurricular Activities",
-        ylab = "Frequency",
-        col = "orange")
-#Internet_Access: Categorical#
-freq_internet <- table(data$Internet_Access)
-print(freq_internet)
-pie(freq_internet,
-    main = "Pie Chart of Internet Access",
-    col = rainbow(length(freq_internet)))
-#Family_Income: Categorical#
-freq_income <- table(data$Family_Income)
-print(freq_income)
-barplot(freq_income,
-        main = "Barplot of Family Income",
-        xlab = "Family Income",
-        ylab = "Frequency",
-        col = "orange")
-#School_Type: Categorical#
-freq_school <- table(data$School_Type)
-print(freq_school)
-barplot(freq_school,
-        main = "Barplot of School Type",
-        xlab = "School Type",
-        ylab = "Frequency",
-        col = "orange")
 
-#Motivation_Level: Categorical#
-freq_Motivation_Level <- table(data$Motivation_Level)
-print(freq_Motivation_Level)
-pie(freq_Motivation_Level,
-    main = "Pie Chart of Motivation Level",
-    col = rainbow(length(freq_Motivation_Level)))
-#Teacher_Quality: Categorical#
-freq_Teacher_Quality <- table(data$Teacher_Quality)
-print(freq_Teacher_Quality)
-barplot(freq_Teacher_Quality,
-        main = "Barplot of Teacher Quality",
-        xlab = "Teacher_Quality",
-        ylab = "Frequency",
-        col = "blue")
-#Peer_Influence: Categorical#
-freq_Peer_Influence <- table(data$Peer_Influence)
-print(freq_Peer_Influence)
-pie(freq_Peer_Influence,
-    main = "Pie Chart of Peer Influence",
-    col = rainbow(length(freq_Peer_Influence)))
-#Learning_Disabilities: Categorical#
-freq_Learning_Disabilities <- table(data$Learning_Disabilities)
-print(freq_Learning_Disabilities)
-pie(freq_Learning_Disabilities,
-    main = "Pie Chart of Learning Disabilities",
-    col = rainbow(length(freq_Learning_Disabilities)))
-#Parental_Education_Level: Categorical#
-freq_Parental_Education_Level <- table(data$Parental_Education_Level)
-print(freq_Parental_Education_Level)
-barplot(freq_Parental_Education_Level,
-        main = "Barplot of Parental Education Level",
-        xlab = "Parental Education_Level",
-        ylab = "Frequency",
-        col = "green")
-#Distance_from_Home: Categorical#
-freq_Distance_from_Home <- table(data$Distance_from_Home)
-print(freq_Distance_from_Home)
-pie(freq_Distance_from_Home,
-    main = "Pie Chart of Distance from Home",
-    col = rainbow(length(freq_Distance_from_Home)))
+#UNIVARIATE ANALYSIS
+#analyzing & visualizing numerical variables 
+num_vars<-c(
+  "Hours_Studied", "Attendance", "Sleep_Hours", "Previous_Scores", 
+  "Exam_Score", "Tutoring_Sessions", "Physical_Activity")
 
-#Gender: Categorical#
-freq_Gender <- table(data$Gender)
-print(freq_Gender)
-pie(freq_Gender,
-    main = "Pie Chart of Gender",
-    col = rainbow(length(freq_Gender)))
+library(e1071)
+for (var in num_vars) {
+  cat("\nVariable:", var, "\n")
+  cat("Max: ", max(data[[var]]),"\n")
+  cat("Min: ", min(data[[var]]),"\n")
+  cat("Mean: ", mean(data[[var]]),"\n")
+  cat("Median: ", median(data[[var]]),"\n")
+  mode_val <- as.numeric(names(sort(table(data[[var]]), decreasing = TRUE)[1]))
+  cat("Mode: ", mode_val, "\n")
+  cat("Percentiles (10th, 25th, 50th, 75th, 90th):\n ")
+  print(quantile(data[[var]], probs = c(0.10, 0.25, 0.50, 0.75, 0.90)))
+  cat("Standard Deviation: ", sd(data[[var]]), "\n")
+  cat("Variance: ", var(data[[var]]), "\n")
+  cat("\n", var, "\n")
+  cat("Skewness:", skewness(data[[var]]), "\n")
+  cat("Kurtosis:", kurtosis(data[[var]]), "\n")
+  
+  
+  hist(data[[var]],
+       main = paste("Histogram of",var),
+       xlab = var,
+       col = "lightblue",
+       border = "black")
+}
+pdf("EDA_Numeric_Plots.pdf")
+for (var in num_vars) {
+  hist(data[[var]], main = paste("Histogram of", var), xlab = var)
+}
+dev.off()
 
-plot(data$Hours_Studied, data$Exam_Score, 
-     main = "Scatter Plot: Hours Studied vs Exam Score",
-     xlab = "Hours Studied",
-     ylab = "Exam Score",
-     col = "darkgreen", pch = 19)
-cor(data$Hours_Studied, data$Exam_Score, use = "complete.obs")
 
-plot(data$Attendance, data$Exam_Score, 
-     main = "Scatter Plot: Attendance vs Exam Score",
-     xlab = "Attendance",
-     ylab = "Exam Score",
-     col = "darkgreen", pch = 19)
-cor(data$Attendance, data$Exam_Score, use = "complete.obs")
+# sleep hours, tutoring sessions, physical activity; why gaps?? 
+# check for it !!!!
 
-plot(data$Sleep_Hours, data$Exam_Score,
-     main = "Scatter Plot: Sleep Hours vs Exam Score",
+#visualizing categorical variables 
+cat_vars <- c(
+  "Parental_Involvement", "Access_to_Resources", "Extracurricular_Activities",
+  "Motivation_Level", "Internet_Access", "Family_Income", "Teacher_Quality",
+  "School_Type", "Peer_Influence", "Learning_Disabilities",
+  "Parental_Education_Level", "Distance_from_Home", "Gender")
+
+for (var in cat_vars) {
+  cat("\nVariable:", var, "\n")
+  freq_tbl <- table(data[[var]])
+  print(freq_tbl)
+  pie(freq_tbl,
+      main = paste("Pie Chart of", var),
+      col = rainbow(length(freq_tbl)))
+}
+
+#BIVARIATE ANALYSIS
+#finding relationship between exam_score and other variables 
+num_vars01 <- c("Hours_Studied", "Attendance", "Sleep_Hours", 
+              "Previous_Scores", "Tutoring_Sessions", "Physical_Activity")
+
+for (var in num_vars01) {
+  cat("Relationship between", var, "and Exam Score\n")
+  plot(data[[var]], data$Exam_Score,
+       main = paste("Scatter Plot:", var, "vs Exam Score"),
+       xlab = var,
+       ylab = "Exam Score",
+       col = "darkgreen", pch = 19)
+  
+  corr_val <- cor(data[[var]], data$Exam_Score, use = "complete.obs")
+  cat("Correlation: ", round(corr_val, 3), "\n\n")
+}
+
+#following relationships are shown as Boxplot 
+for (var in cat_vars) {
+  cat("Relationship between", var, "and Exam Score\n")
+  boxplot(data$Exam_Score ~ data[[var]],
+          main = paste("Exam Score by", var),
+          xlab = var,
+          ylab = "Exam Score",
+          col = c("lightblue", "lightpink", "lightgreen"))
+  cat("Summary statistics of Exam Score by", var, ":\n")
+  print(tapply(data$Exam_Score, data[[var]], summary))
+}
+
+#relationship between School type & Teacher Quality(c&c)
+freq_table <- table(data$School_Type, data$Teacher_Quality)
+print(freq_table)
+barplot(freq_table,
+        main = "School Type by Teacher Quality",
+        xlab = "Teacher Quality",
+        ylab = "Count",
+        col = c("pink","blue"),
+        beside = FALSE)                 
+
+#relationship between sleep hours & physical activity(n&n)
+# Calculate correlation
+corr <- cor(data$Sleep_Hours, data$Physical_Activity)
+
+# Display correlation coefficient
+cat("Correlation coefficient between Sleep Hours and Physical Activity:", round(corr, 2), "\n")
+
+# Scatter plot with correlation
+plot(data$Sleep_Hours, data$Physical_Activity,
+     main = "Sleep Hours vs Physical Activity",
      xlab = "Sleep Hours",
-     ylab = "Exam Score",
-     col = "darkgreen", pch = 19)
-cor(data$Sleep_Hours, data$Exam_Score, use = "complete.obs")
-
-plot(data$Previous_Scores, data$Exam_Score,
-     main = "Scatter Plot: Previous Scores vs Exam Score",
-     xlab = "Previous Scores",
-     ylab = "Exam Score",
-     col = "darkgreen", pch = 19)
-cor(data$Previous_Scores, data$Exam_Score, use = "complete.obs")
-
-plot(data$Physical_Activity,data$Exam_Score,
-     main = "Scatter Plot: Physical Activity vs Exam Score",
-     xlab = "Physical Activity",
-     ylab = "Exam Score",
-     col = "darkgreen", pch = 19)
-cor(data$Physical_Activity, data$Exam_Score, use = "complete.obs")
-plot(data$Tutoring_Sessions, data$Exam_Score,
-     main = "Scatter Plot: Tutoring Sessions vs Exam Score",
-     xlab = "Tutoring Sessions",
-     ylab = "Exam Score",
-     col = "darkgreen", pch = 19)
-cor(data$Tutoring_Sessions, data$Exam_Score, use = "complete.obs")
-
-plot(data$Parental_Involvement, data$Exam_Score,
-     main = "Scatter Plot: Parental Involvement vs Exam Score",
-     xlab = "Parental Involvement",
-     ylab = "Exam Score",
-     col = "darkgreen", pch = 19)
-
-boxplot(Exam_Score ~ Parental_Involvement, data = data,
-        main = "Exam Score by Parental Involvement",
-        xlab = "Parental Involvement", ylab = "Exam Score",
-        col = c("lightblue", "lightpink"))
-
-boxplot(Exam_Score ~ Access_to_Resources, data = data,
-        main = "Exam score by Access to Resources",
-        xlab = "Access to Resources", ylab = "Exam Score",
-        col = c("lightblue", "lightpink"))
-
-boxplot(Exam_Score ~ Motivation_Level, data = data,
-        main = "Exam score by Motivation Level",
-        xlab = "Motivation Level", ylab = "Exam Score",
-        col = c("lightblue", "lightpink"))
-
-boxplot(Exam_Score ~ Extracurricular_Activities, data = data,
-        main = "Exam score by Extracurricular_Activities",
-        xlab = "Extracurricular_Activities", ylab = "Exam Score",
-        col = c("lightblue", "lightpink"))
-
-boxplot(Exam_Score ~ Internet_Access, data = data,
-        main = "Exam score by Internet_Access",
-        xlab = "Internet_Access", ylab = "Exam Score",
-        col = c("lightblue", "lightpink"))
-
-boxplot(Exam_Score ~ Family_Income, data = data,
-        main = "Exam score by Family_Income",
-        xlab = "Family_Income", ylab = "Exam Score",
-        col = c("lightblue", "lightpink"))
-
-boxplot(Exam_Score ~ Teacher_Quality, data = data,
-        main = "Exam score by Teacher_Quality",
-        xlab = "Teacher_Quality", ylab = "Exam Score",
-        col = c("lightblue", "lightpink"))
-
-boxplot(Exam_Score ~ School_Type, data = data,
-        main = "Exam score by School Type",
-        xlab = "School Type", ylab = "Exam Score",
-        col = c("lightblue", "lightpink"))
-
-boxplot(Exam_Score ~ Peer_Influence, data = data,
-        main = "Exam score by Peer Influence",
-        xlab = "Family_Income", ylab = "Exam Score",
-        col = c("lightblue", "lightpink"))
-
-boxplot(Exam_Score ~ Learning_Disabilities, data = data,
-        main = "Exam score by Learning Disabilities",
-        xlab = "Learning Disabilities", ylab = "Exam Score",
-        col = c("lightblue", "lightpink"))
-
-boxplot(Exam_Score ~ Parental_Education_Level, data = data,
-        main = "Exam score by Parental Education Level",
-        xlab = "Parental Education Level", ylab = "Exam Score",
-        col = c("lightblue", "lightpink"))
-
-boxplot(Exam_Score ~ Distance_from_Home, data = data,
-        main = "Exam score by Distance from Home",
-        xlab = "Distance from Home", ylab = "Exam Score",
-        col = c("lightblue", "lightpink"))
-
-boxplot(Exam_Score ~ Gender, data = data,
-        main = "Exam score by Gender",
-        xlab = "Gender", ylab = "Exam Score",
-        col = c("lightblue", "lightpink"))
-
-table_dataMG <- table(data$Motivation_Level, data$Gender)
-print(table_dataMG)data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAbElEQVR4Xs2RQQrAMAgEfZgf7W9LAguybljJpR3wEse5JOL3ZObDb4x1loDhHbBOFU6i2Ddnw2KNiXcdAXygJlwE8OFVBHDgKrLgSInN4WMe9iXiqIVsTMjH7z/GhNTEibOxQswcYIWYOR/zAjBJfiXh3jZ6AAAAAElFTkSuQmCC
-chisq_resultMG <- chisq.test(table_dataMG)
-print(chisq_resultMG)
-if (a%%)
-tablegender <- table(data$Gender)
-prop.table(tablegender)
-
-model <- lm(Exam_Score ~ Hours_Studied + Sleep_Hours + Attendance, data = data)
-summary(model)
+     ylab = "Physical Activity",
+     col = "blue", pch = 19)
 
 
+#relationship between sleep hours & motivation level 
+#check it outttt!!!!!!
+boxplot(data$Sleep_Hours ~ data$Motivation_Level, 
+        main = "Sleep Hours by Motivation Level",
+        xlab = "Motivation Level",
+        ylab = "Sleep Hours",
+        col = "pink")
 
+
+# Summary statistics
+tapply(data$Sleep_Hours, data$Motivation_Level, summary)
+
+# Boxplot
+boxplot(data$Sleep_Hours ~ data$Motivation_Level, 
+        main = "Sleep Hours by Motivation Level",
+        xlab = "Motivation Level",
+        ylab = "Sleep Hours",
+        col = "pink")
+
+
+#MULTIVARIATE ANALYSIS
+#plot for sleep hours + motivation level + exam score
+boxplot(Exam_Score ~ Motivation_Level+Sleep_Hours,
+        data = data,
+        main = "Exam Score by Sleep hours and Motivational level",
+        xlab = "Motivational level and Sleep hours",
+        ylab = "Exam Score",
+        col = c("green","blue","pink"))
+#plot for Hours_Studied + Physical_Activity + Sleep_Hours+ Exam_Score
+cor_data <-cor(data[,c("Hours_Studied","Physical_Activity","Sleep_Hours","Exam_Score")])
+library(corrplot)
+corrplot::corrplot(cor_data, 
+                   method = "color", addCoef.col="red")
+cor_data2 <- cor(data[,c("Sleep_Hours", "Physical_Activity","Exam_Score")])
+corrplot::corrplot(cor_data2,
+                   method = "color",addCoef.col = "red")
+
+#Multivariate Analysis
+#multivariate analysis for exam_score_access resources_family income
+
+
+interaction_factor <- interaction(StudentPerformanceFactors$Access_to_Resources,
+                                  StudentPerformanceFactors$Family_Income)
+
+# Boxplot
+boxplot(Exam_Score ~ interaction_factor, data = StudentPerformanceFactors,
+        las = 2, col = rainbow(length(unique(interaction_factor))),
+        main = "Exam Score by Access to Resources and Income Level",
+        xlab = "Access × Income Level", ylab = "Exam Score")
+#Previous_Score + Physical_Activity + Exam_Score
+
+colors <- heat.colors(100)[cut(StudentPerformanceFactors$Exam_Score, breaks = 100)]
+
+# Scatter plot: Previous_Score vs Physical_Activity, colored by Exam_Score
+plot(StudentPerformanceFactors$Previous_Score, StudentPerformanceFactors$Physical_Activity,
+     col = colors, pch = 19,
+     xlab = "Previous Score", ylab = "Physical Activity",
+     main = "Previous Score vs Physical Activity (Color = Exam Score)")
+
+# Optional: add color legend manually if needed
+legend("topright", legend = "Color = Exam Score", fill = "orange", border = "black")
+cor_data1 <-cor(data[,c("Hours_Studied", "Attendance", "Exam_Score")])
+library(corrplot)
+corrplot::corrplot(cor_data1, method= "color",addCoef.col ="Black")
+
+cor_data2 <-cor(data[,c("Sleep_Hours", "Physical_Activity","Exam_Score")])
+corrplot::corrplot(cor_data2, method = "color", addCoef.col = "Black" )
+
+#MULTIVARIATE ANALYSIS
+
+# Interaction plot for Exam Score by Peer Influence and Extracurricular Activities
+interaction.plot(data$Peer_Influence, data$Extracurricular_Activities, data$Exam_Score,
+                 main = "Interaction: Peer Influence & Extracurricular Activities on Exam Score",
+                 xlab = "Peer Influence",
+                 ylab = "Mean Exam Score",
+                 col = c("blue", "green", "red"),
+                 legend = TRUE)
+
+# Mean Exam Score table
+with(data, tapply(Exam_Score, list(Peer_Influence, Extracurricular_Activities), mean))
+
+
+# Interaction plot
+interaction.plot(data$Parental_Education_Level, data$Distance_from_Home, data$Exam_Score,
+                 main = "Interaction: Parental Education & Distance from Home on Exam Score",
+                 xlab = "Parental Education Level",
+                 ylab = "Mean Exam Score",
+                 col = c("orange", "purple", "darkgreen"),
+                 legend = TRUE)
+
+# Mean Exam Score table
+with(data, tapply(Exam_Score, list(Parental_Education_Level, Distance_from_Home), mean))
+
+# Q-Q plot for Hours_Studied
+qqnorm(data$Hours_Studied)
+qqline(data$Hours_Studied)
+
+qqnorm(data$Attendance)
+qqline(data$Attendance)
+
+qqnorm(data$Sleep_Hours)
+qqline(data$Sleep_Hours)
+
+qqnorm(data$Previous_Scores)
+qqline(data$Previous_Scores)
+
+qqnorm(data$Tutoring_Sessions)
+qqline(data$Tutoring_Sessions)
+
+qqnorm(data$Physical_Activity)
+qqline(data$Physical_Activity)
+
+qqnorm(data$Exam_Score)
+qqline(data$Exam_Score)
+
+# Create contingency table
+gender_school_table <- table(data$Gender, data$School_Type)
+
+# Run chi-square test
+chi_test <- chisq.test(gender_school_table)
+
+# Output results
+print(chi_test)
+
+t_test <- t.test(Exam_Score ~ Gender, data = data)
+print(t_test)
+
+anova_model <- aov(Exam_Score ~ Motivation_Level, data = data)
+summary(anova_model)
+
+cor_test <- cor.test(data$Hours_Studied, data$Exam_Score, method = "pearson")
+print(cor_test)
+
+cor.test(data$Hours_Studied, data$Exam_Score, method = "spearman")
+
+#find outliers from boxplots
+num_vars <- c("Hours_Studied", "Attendance", "Sleep_Hours", "Previous_Scores", "Exam_Score", "Tutoring_Sessions", "Physical_Activity")
+for(var in num_vars){
+  boxplot(data[[var]],
+          main = paste("Outliers of ",var),
+          ylab = "Values",
+          col = "lightblue")
+}
 
 
 
