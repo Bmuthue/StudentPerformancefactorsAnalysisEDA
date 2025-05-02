@@ -57,12 +57,6 @@ for (var in num_vars) {
        col = "lightblue",
        border = "black")
 }
-pdf("EDA_Numeric_Plots.pdf")
-for (var in num_vars) {
-  hist(data[[var]], main = paste("Histogram of", var), xlab = var)
-}
-dev.off()
-
 
 # sleep hours, tutoring sessions, physical activity; why gaps?? 
 # check for it !!!!
@@ -230,6 +224,7 @@ interaction.plot(data$Parental_Education_Level, data$Distance_from_Home, data$Ex
 # Mean Exam Score table
 with(data, tapply(Exam_Score, list(Parental_Education_Level, Distance_from_Home), mean))
 
+
 # Q-Q plot for Hours_Studied
 qqnorm(data$Hours_Studied)
 qqline(data$Hours_Studied)
@@ -252,20 +247,29 @@ qqline(data$Physical_Activity)
 qqnorm(data$Exam_Score)
 qqline(data$Exam_Score)
 
-# Create contingency table
 gender_school_table <- table(data$Gender, data$School_Type)
+chi_test1 <- chisq.test(gender_school_table)
+print(chi_test1)
 
-# Run chi-square test
-chi_test <- chisq.test(gender_school_table)
+table2 <- table(data$Parental_Education_Level, data$Family_Income)
+chi_test2<-chisq.test(table2)
+print(chi_test2)
 
-# Output results
-print(chi_test)
+table3 <- table(data$School_Type, data$Internet_Access)
+chi_test3<-chisq.test(table3)
+print(chi_test3)
 
-t_test <- t.test(Exam_Score ~ Gender, data = data)
-print(t_test)
+t_test1 <- t.test(Exam_Score ~ Gender, data = data)
+print(t_test1)
 
-anova_model <- aov(Exam_Score ~ Motivation_Level, data = data)
-summary(anova_model)
+t_test2<-t.test(Exam_Score ~ School_Type, data = data)
+print(t_test2)
+
+t_test3<-t.test(Exam_Score ~ Internet_Access, data = data)
+print(t_test3)
+
+
+
 
 cor_test <- cor.test(data$Hours_Studied, data$Exam_Score, method = "pearson")
 print(cor_test)
@@ -280,6 +284,4 @@ for(var in num_vars){
           ylab = "Values",
           col = "lightblue")
 }
-
-
 
